@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+  parallel="classes" runs each <class> on its own thread; thread-count caps concurrency.
+  Because DriverFactory keeps one WebDriver per thread (ThreadLocal), these classes -
+  and every @Test method inside them - execute against independent browser sessions.
+-->
+<suite name="SauceDemoSuite" parallel="classes" thread-count="10" data-provider-thread-count="5" verbose="1">
+
+    <listeners>
+        <listener class-name="com.framework.listeners.TestListener"/>
+    </listeners>
+
+    <test name="SauceDemoTests">
+        <classes>
+            <class name="com.framework.tests.LoginTest"/>
+            <class name="com.framework.tests.InventoryTest"/>
+            <class name="com.framework.tests.CheckoutTest"/>
+        </classes>
+    </test>
+
+    <!-- Browser-free unit tests for the flaky-detection / impact-analysis utilities -->
+    <test name="FrameworkUtilityTests">
+        <classes>
+            <class name="com.framework.utils.FlakyTestDetectorTests"/>
+            <class name="com.framework.utils.RunHistoryStoreTests"/>
+            <class name="com.framework.utils.TestImpactAnalyzerTests"/>
+        </classes>
+    </test>
+
+</suite>

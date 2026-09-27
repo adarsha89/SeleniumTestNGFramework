@@ -1,0 +1,5 @@
+{
+  "LoginTest": ["driver", "config", "login"],
+  "InventoryTest": ["driver", "config", "login", "inventory"],
+  "CheckoutTest": ["driver", "config", "login", "inventory", "cart", "checkout"]
+}
