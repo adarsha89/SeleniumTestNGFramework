@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -53,10 +54,7 @@ public final class RunHistoryStore {
 
         List<Map<String, Boolean>> outcomeSets = new ArrayList<>();
         for (Path file : runFiles) {
-            Map<String, Boolean> scenarioOutcomes = readScenarioOutcomes(file);
-            if (scenarioOutcomes != null) {
-                outcomeSets.add(scenarioOutcomes);
-            }
+            readScenarioOutcomes(file).ifPresent(outcomeSets::add);
         }
         return outcomeSets;
     }
@@ -90,12 +88,12 @@ public final class RunHistoryStore {
         return paths;
     }
 
-    private Map<String, Boolean> readScenarioOutcomes(Path file) {
+    private Optional<Map<String, Boolean>> readScenarioOutcomes(Path file) {
         try {
-            return new ObjectMapper().readValue(file.toFile(), JsonRunFile.class).scenarioOutcomes;
+            return Optional.ofNullable(new ObjectMapper().readValue(file.toFile(), JsonRunFile.class).scenarioOutcomes);
         } catch (IOException e) {
             log.warn("Skipping unreadable/malformed prior run file {}", file, e);
-            return null;
+            return Optional.empty();
         }
     }
 

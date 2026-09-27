@@ -22,7 +22,10 @@ https://www.saucedemo.com/.
 src/main/java/com/framework/
   config/     ConfigReader, TestData
   driver/     DriverFactory (ThreadLocal WebDriver, Selenium Manager based)
-  pages/      Page Objects (LoginPage, InventoryPage, CartPage, Checkout*Page)
+  pages/      Page Objects (LoginPage, InventoryPage, CartPage, Checkout*Page),
+              BasePage, LoggedInPage (pages reachable after login expose header())
+    modules/  Reusable page modules shared across pages (HeaderModule,
+              BurgerMenuModule, ErrorMessageModule)
   assertions/ Verifications per area (LoginAssertions, InventoryAssertions, ...)
   services/   Business flows that drive pages and call assertions (LoginService, ...)
   utils/      WaitUtils, ScreenshotUtils, FlakyTestDetector, RunHistoryStore,
@@ -38,7 +41,7 @@ src/test/java/com/framework/tests/
   base/BaseTest.java   per-method driver lifecycle
   LoginTest, InventoryTest, CheckoutTest
 
-testng.xml            suite definition with parallel="classes" thread-count="3"
+src/test/resources/suites/testng.xml   suite definition with parallel="classes" thread-count="10"
 ```
 
 ## Running the suite
@@ -102,8 +105,11 @@ Tests **never** call a page object or an assertion class directly. They only tal
 
 ## Adding a new page/flow
 
-1. Create a `XyzPage implements BasePage` in `pages/` with `By` locators and public actions.
+1. Create a `XyzPage implements BasePage` (or `LoggedInPage` if it's behind login) in `pages/` with `By` locators and public actions.
 2. Add `XyzAssertions` in `assertions/` for any new verifications.
 3. Add (or extend) `XyzService` in `services/` exposing the actions and `verify*` methods tests need.
 4. Add a test class under `tests/` extending `BaseTest` that uses only services, and register it
-   in `testng.xml`.
+   in `src/test/resources/suites/testng.xml` and `src/main/resources/testimpact/dependency-graph.json`.
+
+UI fragments that appear on several pages (header, menus, banners) belong in a page module under
+`pages/modules/`, exposed from pages via an accessor such as `header()`, not duplicated per page.

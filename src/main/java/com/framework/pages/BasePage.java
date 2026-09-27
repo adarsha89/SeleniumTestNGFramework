@@ -3,12 +3,9 @@ package com.framework.pages;
 import com.framework.driver.DriverManager;
 import com.framework.utils.WaitUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /** Common behavior shared by every Page Object: waits, safe interactions, PageFactory init. */
 public interface BasePage {
@@ -37,7 +34,7 @@ public interface BasePage {
     default List<String> getTexts(By locator) {
         return waitUtils().waitForAllVisible(locator).stream()
                 .map(WebElement::getText)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     default boolean isDisplayed(By locator) {

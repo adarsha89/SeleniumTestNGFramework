@@ -5,6 +5,7 @@ import com.framework.config.ConfigReader;
 import com.framework.config.TestData;
 import com.framework.pages.InventoryPage;
 import com.framework.pages.LoginPage;
+import com.framework.pages.modules.ErrorMessageModule;
 
 /**
  * Login/logout flow. Tests use this instead of touching LoginPage or LoginAssertions directly.
@@ -35,7 +36,7 @@ public class LoginService {
     }
 
     public LoginService logout() {
-        new InventoryPage().logout();
+        new InventoryPage().header().openMenu().logout();
         return this;
     }
 
@@ -45,9 +46,9 @@ public class LoginService {
     }
 
     public LoginService verifyLoginErrorContains(String expectedFragment) {
-        LoginPage loginPage = new LoginPage();
-        assertions.verifyErrorDisplayed(loginPage.isErrorDisplayed());
-        assertions.verifyErrorContains(loginPage.getErrorMessage(), expectedFragment);
+        ErrorMessageModule error = new LoginPage().errorMessage();
+        assertions.verifyErrorDisplayed(error.isShown());
+        assertions.verifyErrorContains(error.getMessage(), expectedFragment);
         return this;
     }
 

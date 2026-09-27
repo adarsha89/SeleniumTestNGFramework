@@ -27,7 +27,7 @@
 
         <!-- Parallel execution controls, overridable via -Dthread.count=N -->
         <thread.count>3</thread.count>
-        <suite.xml>testng.xml</suite.xml>
+        <suite.xml>src/test/resources/suites/testng.xml</suite.xml>
     </properties>
 
     <dependencies>

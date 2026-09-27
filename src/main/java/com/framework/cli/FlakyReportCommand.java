@@ -5,13 +5,15 @@ import com.framework.utils.Constants;
 import com.framework.utils.FlakyTestDetector;
 import com.framework.utils.RunHistoryStore;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Model.CommandSpec;
+import picocli.CommandLine.Spec;
 
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.Callable;
 
 /**
  * Prints the scenarios the cross-run comparator would flag as flaky, without running any tests,
@@ -20,11 +22,14 @@ import java.util.concurrent.Callable;
  * file as "priors" - the same comparator {@code TestListener#onFinish} uses given that history.
  */
 @Command(name = "flaky-report", description = "Print scenarios flagged flaky from stored run history")
-public final class FlakyReportCommand implements Callable<Integer> {
+public final class FlakyReportCommand implements Runnable {
 
     private static final String REPORT_TITLE = "Flaky Test Report";
 
     private final RunHistoryStore runHistoryStore;
+
+    @Spec
+    private CommandSpec spec;
 
     FlakyReportCommand() {
         this(new RunHistoryStore());
@@ -35,21 +40,21 @@ public final class FlakyReportCommand implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() {
+    public void run() {
+        PrintWriter out = spec.commandLine().getOut();
         List<Map<String, Boolean>> outcomeSets = runHistoryStore.load();
         if (outcomeSets.size() < 2) {
-            System.out.println("Not enough run history to detect flakiness (need at least 2 runs, found "
+            out.println("Not enough run history to detect flakiness (need at least 2 runs, found "
                     + outcomeSets.size() + ")");
             CliHtmlReportWriter.write(Path.of(Constants.FLAKY_REPORT_FILE), REPORT_TITLE, Set.of());
-            return 0;
+            return;
         }
 
         Map<String, Boolean> current = outcomeSets.get(0);
         List<Map<String, Boolean>> priors = outcomeSets.subList(1, outcomeSets.size());
 
         Set<String> flaky = new TreeSet<>(FlakyTestDetector.computeFlakyScenarios(current, priors));
-        flaky.forEach(System.out::println);
+        flaky.forEach(out::println);
         CliHtmlReportWriter.write(Path.of(Constants.FLAKY_REPORT_FILE), REPORT_TITLE, flaky);
-        return 0;
     }
 }

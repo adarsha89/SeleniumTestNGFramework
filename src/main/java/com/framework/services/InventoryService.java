@@ -39,7 +39,7 @@ public class InventoryService {
     }
 
     public InventoryService openCart() {
-        new InventoryPage().goToCart();
+        new InventoryPage().header().openCart();
         return this;
     }
 
@@ -54,7 +54,7 @@ public class InventoryService {
     }
 
     public InventoryService verifyCartBadgeCount(int expectedCount) {
-        assertions.verifyCartBadgeCount(new InventoryPage().getCartCount(), expectedCount);
+        assertions.verifyCartBadgeCount(new InventoryPage().header().getCartCount(), expectedCount);
         return this;
     }
 }
