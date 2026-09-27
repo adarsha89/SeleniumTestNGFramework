@@ -3,6 +3,10 @@
 Parallel-ready UI automation framework built with **Selenium 4.25** and **TestNG 7.10**, targeting
 https://www.saucedemo.com/.
 
+<p align="center">
+  <img src="./project.svg" alt="Selenium UI Automation Framework Architecture">
+</p>
+
 ## Highlights
 
 - **Selenium Manager** (built into Selenium 4.6+) resolves browser drivers automatically — no
