@@ -44,7 +44,7 @@ public class CheckoutService {
     }
 
     public CheckoutService verifyErrorContains(String expectedFragment) {
-        assertions.verifyErrorContains(new CheckoutStepOnePage().getErrorMessage(), expectedFragment);
+        assertions.verifyErrorContains(new CheckoutStepOnePage().errorMessage().getMessage(), expectedFragment);
         return this;
     }
 }

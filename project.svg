@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1300" viewBox="0 0 1600 1300">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+    <path d="M0,0 L10,5 L0,10 Z" fill="#222"/>
+  </marker>
+  <style>
+    .title{font:700 30px Arial,sans-serif;fill:#111}
+    .head{font:700 25px Arial,sans-serif;fill:#111}
+    .subhead{font:700 19px Arial,sans-serif;fill:#111}
+    .body{font:18px Arial,sans-serif;fill:#111}
+    .small{font:16px Arial,sans-serif;fill:#111}
+    .box{stroke:#222;stroke-width:3}
+    .arrow{stroke:#222;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+  </style>
+</defs>
+
+<rect width="1600" height="1300" fill="white"/>
+<text x="30" y="45" class="title">Maven + TestNG + Selenium WebDriver</text>
+
+<!-- Utils -->
+<rect x="25" y="110" width="320" height="740" rx="25" fill="#fff0b8" class="box"/>
+<text x="185" y="155" text-anchor="middle" class="head">Utils</text>
+
+<rect x="45" y="185" width="280" height="92" rx="15" fill="white" class="box"/>
+<text x="185" y="220" text-anchor="middle" class="subhead">Explicit Waits</text>
+<text x="185" y="248" text-anchor="middle" class="small">(WaitUtils · FluentWait)</text>
+
+<rect x="45" y="295" width="280" height="92" rx="15" fill="white" class="box"/>
+<text x="185" y="330" text-anchor="middle" class="subhead">Screenshots</text>
+<text x="185" y="358" text-anchor="middle" class="small">(on failure, per thread)</text>
+
+<rect x="45" y="405" width="280" height="92" rx="15" fill="white" class="box"/>
+<text x="185" y="440" text-anchor="middle" class="subhead">Flaky Test Detection</text>
+<text x="185" y="468" text-anchor="middle" class="small">(cross-run history)</text>
+
+<rect x="45" y="515" width="280" height="92" rx="15" fill="white" class="box"/>
+<text x="185" y="550" text-anchor="middle" class="subhead">Test Impact Analysis</text>
+<text x="185" y="578" text-anchor="middle" class="small">(changed area → test classes)</text>
+
+<rect x="45" y="625" width="280" height="92" rx="15" fill="white" class="box"/>
+<text x="185" y="660" text-anchor="middle" class="subhead">CLI Reports</text>
+<text x="185" y="688" text-anchor="middle" class="small">(picocli · HTML reports)</text>
+
+<rect x="45" y="735" width="280" height="92" rx="15" fill="white" class="box"/>
+<text x="185" y="770" text-anchor="middle" class="subhead">Constants</text>
+<text x="185" y="798" text-anchor="middle" class="small">(shared paths and keys)</text>
+
+<!-- Page Layer & Assertions -->
+<rect x="440" y="90" width="650" height="240" rx="25" fill="#d9f2d9" class="box"/>
+<text x="765" y="130" text-anchor="middle" class="head">Page Layer &amp; Assertions</text>
+
+<rect x="460" y="160" width="195" height="150" rx="15" fill="white" class="box"/>
+<text x="557" y="195" text-anchor="middle" class="subhead">Page Objects</text>
+<text x="557" y="225" text-anchor="middle" class="small">one class per screen</text>
+<text x="557" y="250" text-anchor="middle" class="small">locators + actions</text>
+<text x="557" y="275" text-anchor="middle" class="small">(BasePage /</text>
+<text x="557" y="297" text-anchor="middle" class="small">LoggedInPage)</text>
+
+<rect x="668" y="160" width="195" height="150" rx="15" fill="#fff6e0" class="box"/>
+<text x="765" y="195" text-anchor="middle" class="subhead">Page Modules</text>
+<text x="765" y="225" text-anchor="middle" class="small">reusable fragments:</text>
+<text x="765" y="250" text-anchor="middle" class="small">Header</text>
+<text x="765" y="275" text-anchor="middle" class="small">BurgerMenu</text>
+<text x="765" y="297" text-anchor="middle" class="small">ErrorMessage</text>
+
+<rect x="876" y="160" width="195" height="150" rx="15" fill="white" class="box"/>
+<text x="973" y="195" text-anchor="middle" class="subhead">Assertions</text>
+<text x="973" y="225" text-anchor="middle" class="small">value-in checks</text>
+<text x="973" y="250" text-anchor="middle" class="small">TestNG Assert</text>
+<text x="973" y="275" text-anchor="middle" class="small">(never touch</text>
+<text x="973" y="297" text-anchor="middle" class="small">pages or driver)</text>
+
+<!-- Driver & Sessions -->
+<rect x="1180" y="90" width="370" height="240" rx="25" fill="#e6d9ff" class="box"/>
+<text x="1365" y="135" text-anchor="middle" class="head">Driver &amp; Sessions</text>
+<text x="1205" y="180" class="body">DriverManager (ThreadLocal)</text>
+<text x="1205" y="215" class="body">BrowserSession + semaphore</text>
+<text x="1205" y="240" class="small">(MAX_BROWSER_SESSIONS)</text>
+<text x="1205" y="280" class="body">DriverFactory</text>
+<text x="1205" y="305" class="small">(Selenium Manager)</text>
+
+<!-- Service Layer -->
+<rect x="480" y="400" width="600" height="260" rx="25" fill="#cfe5fa" class="box"/>
+<text x="780" y="445" text-anchor="middle" class="head">Service Layer</text>
+<text x="515" y="490" class="body">One service per functional area</text>
+<text x="515" y="518" class="small">(LoginService, InventoryService, CartService, CheckoutService)</text>
+<text x="515" y="565" class="body">Drives page objects and page modules</text>
+<text x="515" y="600" class="body">Passes values read from pages to assertions</text>
+<text x="515" y="635" class="body">Fluent methods (return this)</text>
+
+<!-- Target: Browsers -->
+<ellipse cx="1365" cy="520" rx="185" ry="115" fill="#ffd1d1" stroke="#a22" stroke-width="3"/>
+<text x="1365" y="478" text-anchor="middle" class="head">Browsers</text>
+<text x="1365" y="515" text-anchor="middle" class="subhead">Chrome · Firefox · Edge</text>
+<text x="1365" y="542" text-anchor="middle" class="small">(headless-aware)</text>
+<text x="1365" y="580" text-anchor="middle" class="subhead">saucedemo.com</text>
+
+<!-- Test Layer -->
+<rect x="480" y="730" width="600" height="210" rx="25" fill="#d9f2d9" class="box"/>
+<text x="780" y="775" text-anchor="middle" class="head">Test Layer</text>
+<text x="515" y="815" class="body">Test classes extending BaseTest</text>
+<text x="515" y="850" class="body">BaseTest: fresh browser session per method</text>
+<text x="515" y="885" class="body">Calls service methods only</text>
+<text x="515" y="920" class="body">@DataProvider for data-driven cases</text>
+
+<!-- Shared Config -->
+<rect x="1180" y="730" width="370" height="230" rx="25" fill="#e6d9ff" class="box"/>
+<text x="1365" y="775" text-anchor="middle" class="head">Shared Config</text>
+<text x="1205" y="815" class="body">ConfigReader → config.properties</text>
+<text x="1205" y="850" class="body">base.url, browser, headless,</text>
+<text x="1205" y="885" class="body">timeouts, session limit</text>
+<text x="1205" y="920" class="body">-D system property overrides</text>
+
+<!-- Test Data -->
+<rect x="190" y="1010" width="450" height="260" rx="25" fill="#cfe5fa" class="box"/>
+<text x="415" y="1055" text-anchor="middle" class="head">Test Data</text>
+<text x="225" y="1095" class="body">TestData constants</text>
+<text x="225" y="1130" class="body">Demo user accounts (config.properties)</text>
+<text x="225" y="1165" class="body">@DataProvider data sets</text>
+<text x="225" y="1200" class="body">Run history JSON (flaky detection)</text>
+<text x="225" y="1235" class="body">dependency-graph.json (impact analysis)</text>
+
+<!-- Reporting -->
+<rect x="850" y="1010" width="650" height="260" rx="25" fill="#e6d9ff" class="box"/>
+<text x="1175" y="1055" text-anchor="middle" class="head">Test Reporting and Test Listeners</text>
+<text x="885" y="1095" class="body">TestListener (pass / fail / skip logging)</text>
+<text x="885" y="1130" class="body">Screenshots on failure → target/screenshots</text>
+<text x="885" y="1165" class="body">Flaky summary → target/test-result-summary.json</text>
+<text x="885" y="1200" class="body">TestNG / Surefire reports</text>
+<text x="885" y="1235" class="body">CLI HTML reports → target/cli-reports</text>
+
+<!-- Arrows -->
+<path d="M345 210 L440 210" class="arrow"/>
+<text x="392" y="200" text-anchor="middle" class="small">waits</text>
+
+<path d="M1090 210 L1180 210" class="arrow"/>
+<text x="1135" y="200" text-anchor="middle" class="small">uses driver</text>
+
+<path d="M1365 330 L1365 405" class="arrow"/>
+<text x="1380" y="373" class="small">launches / drives</text>
+
+<path d="M780 400 L780 330" class="arrow"/>
+<text x="800" y="360" class="small">Drives pages and modules,</text>
+<text x="800" y="382" class="small">calls assertions</text>
+
+<path d="M780 730 L780 660" class="arrow"/>
+<text x="800" y="700" class="small">Calls service methods</text>
+
+<path d="M1180 760 L1085 640" class="arrow"/>
+<text x="1195" y="712" class="small">base URL, test users</text>
+
+<path d="M1550 845 L1580 845 L1580 210 L1556 210" class="arrow"/>
+<text transform="translate(1594,520) rotate(-90)" text-anchor="middle" class="small">browser, headless, timeouts</text>
+
+<path d="M415 1010 L560 940" class="arrow"/>
+<text x="400" y="985" text-anchor="end" class="small">Provides test data</text>
+
+<path d="M900 940 L900 1010" class="arrow"/>
+<text x="920" y="968" class="small">Generates test results</text>
+<text x="920" y="988" class="small">(triggers TestListener)</text>
+</svg>

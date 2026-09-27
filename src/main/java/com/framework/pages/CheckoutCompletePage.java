@@ -1,9 +1,8 @@
 package com.framework.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-public class CheckoutCompletePage implements BasePage {
+public class CheckoutCompletePage implements LoggedInPage {
 
     private final By completeHeader = By.className("complete-header");
     private final By backHomeButton = By.id("back-to-products");

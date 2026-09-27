@@ -6,11 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class DriverManager {
+public final class DriverManager {
 
     private static final ThreadLocal<Map<Integer, WebDriver>> MAP_OF_DRIVERS =
             ThreadLocal.withInitial(HashMap::new);
     private static final ThreadLocal<Integer> CURRENT_IDENTIFIER = new ThreadLocal<>();
+
+    private DriverManager() {
+    }
 
     public static WebDriver getDriver() {
         Integer id = CURRENT_IDENTIFIER.get();
@@ -41,12 +44,16 @@ public class DriverManager {
 
     /** Quits the driver for this identifier specifically and removes it from the map atomically. */
     public static void quitDriver(Integer identifier) {
-        WebDriver driver = MAP_OF_DRIVERS.get().remove(identifier);
+        Map<Integer, WebDriver> drivers = MAP_OF_DRIVERS.get();
+        WebDriver driver = drivers.remove(identifier);
         if (driver != null) {
             driver.quit();
         }
         if (identifier.equals(CURRENT_IDENTIFIER.get())) {
             CURRENT_IDENTIFIER.remove();
+        }
+        if (drivers.isEmpty()) {
+            MAP_OF_DRIVERS.remove();
         }
     }
 }

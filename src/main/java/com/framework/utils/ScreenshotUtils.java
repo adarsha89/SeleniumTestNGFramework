@@ -4,11 +4,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public final class ScreenshotUtils {
@@ -23,7 +24,7 @@ public final class ScreenshotUtils {
         try {
             Files.createDirectories(SCREENSHOT_DIR);
             File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            String fileName = testName + "_" + java.time.LocalDateTime.now().format(TIMESTAMP) + ".png";
+            String fileName = testName + "_" + LocalDateTime.now(ZoneId.systemDefault()).format(TIMESTAMP) + ".png";
 
             Path target = SCREENSHOT_DIR.resolve(fileName);
             Files.copy(source.toPath(), target);

@@ -1,25 +1,19 @@
 package com.framework.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class InventoryPage implements BasePage {
+public class InventoryPage implements LoggedInPage {
 
     private final By pageTitle = By.className("title");
     private final By inventoryItems = By.className("inventory_item");
     private final By itemName = By.className("inventory_item_name");
     private final By itemPrice = By.className("inventory_item_price");
     private final By addToCartButton = By.cssSelector("button[data-test^='add-to-cart']");
-    private final By cartBadge = By.className("shopping_cart_badge");
-    private final By cartLink = By.className("shopping_cart_link");
     private final By sortDropdown = By.className("product_sort_container");
-    private final By burgerMenuButton = By.id("react-burger-menu-btn");
-    private final By logoutLink = By.id("logout_sidebar_link");
 
 
     public boolean isLoaded() {
@@ -33,7 +27,7 @@ public class InventoryPage implements BasePage {
     public List<Double> getItemPrices() {
         return waitUtils().waitForAllVisible(itemPrice).stream()
                 .map(el -> Double.parseDouble(el.getText().replace("$", "")))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public InventoryPage addItemToCartByName(String productName) {
@@ -63,28 +57,10 @@ public class InventoryPage implements BasePage {
                 .orElseThrow(() -> new NoSuchElementFoundException(productName));
     }
 
-    public int getCartCount() {
-        if (!isDisplayed(cartBadge)) {
-            return 0;
-        }
-        return Integer.parseInt(getText(cartBadge));
-    }
-
-    public CartPage goToCart() {
-        click(cartLink);
-        return new CartPage();
-    }
-
     public InventoryPage sortBy(SortOption option) {
         Select select = new Select(waitUtils().waitForVisible(sortDropdown));
         select.selectByValue(option.value);
         return this;
-    }
-
-    public LoginPage logout() {
-        click(burgerMenuButton);
-        click(logoutLink);
-        return new LoginPage();
     }
 
     public enum SortOption {

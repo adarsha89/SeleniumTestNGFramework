@@ -1,11 +1,10 @@
 package com.framework.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
-public class CartPage implements BasePage {
+public class CartPage implements LoggedInPage {
 
     private final By cartItemNames = By.className("inventory_item_name");
     private final By checkoutButton = By.id("checkout");

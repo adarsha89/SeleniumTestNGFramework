@@ -1,9 +1,8 @@
 package com.framework.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-public class CheckoutStepTwoPage implements BasePage {
+public class CheckoutStepTwoPage implements LoggedInPage {
 
     private final By itemTotalLabel = By.className("summary_subtotal_label");
     private final By totalLabel = By.className("summary_total_label");
